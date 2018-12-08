@@ -7,7 +7,7 @@ import time
 import os
 
 
-class Get_lyr:
+class GetLyr:
 
     def get_list(self, url):
         base = "https://www.uta-net.com"
