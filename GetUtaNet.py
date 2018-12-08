@@ -62,4 +62,4 @@ class GetLyr:
 
 
 if __name__ == '__main__':
-    Get_lyr().main('https://www.uta-net.com/artist/19617/', 'PoppinParty')
+    GetLyr().main('https://www.uta-net.com/artist/19617/', 'PoppinParty')
