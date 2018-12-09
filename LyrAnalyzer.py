@@ -7,6 +7,7 @@ import zipfile
 import re
 import os
 import glob
+import json
 
 class TxtAnalyze:
     def __init__(self):
@@ -18,8 +19,8 @@ class TxtAnalyze:
         self.total_keys = {}
         self.result = {}
 
-    def read_txt(self, file_name):
-        os.chdir('./kasi/')
+    def read_txt(self, file_name, dir_name):
+        os.chdir(dir_name)
         with open(file_name, 'r') as f:
             txt = f.read()
             self.txt = txt
@@ -36,9 +37,9 @@ class TxtAnalyze:
         txt = bindata.decode('shift_jis')
         self.txt = txt
 
-    def read_all_txt(self):
+    def read_all_txt(self, dir_name):
         """get all FILE.txt names"""
-        file_list = glob.glob("./kasi/*.txt")
+        file_list = glob.glob(dir_name + "/*.txt")
         self.file_list = list(map(os.path.basename, file_list))
 
     def txt_filter(self):
@@ -51,7 +52,7 @@ class TxtAnalyze:
         self.words = t.tokenize(self.txt)
         for i in self.words:
             ps = i.part_of_speech
-            if ps.find('名詞') < 0| ps.find('動詞')|ps.find('副詞'):
+            if ps.find('名詞') < 0| ps.find('動詞')|ps.find('形容詞'):
                 continue
             if not i.surface in self.word_dic:
                 self.word_dic[i.surface] = 0
@@ -74,19 +75,21 @@ class TxtAnalyze:
         return d
 
        
-    def main(self):
-        self.read_all_txt()
+    def main(self, dir_name):
+        self.read_all_txt(dir_name)
         cnt = 0
         result = {}
         for i in self.file_list:
-            self.read_txt(i)
+            self.read_txt(i, dir_name)
             self.txt_filter()
             self.word_counter()
             cnt += 1
             print("process{0}...done." .format(cnt))
         self.keys = sorted(self.total_keys.items(), key=lambda x:x[1], reverse=True)
+        with open('output.json', 'w') as f:
+            json.dump(self.keys, f)
         print(self.keys)
 
 if __name__ == '__main__':
     test = TxtAnalyze()
-    test.main()
+    test.main('PoppinParty')
