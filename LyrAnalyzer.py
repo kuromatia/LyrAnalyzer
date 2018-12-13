@@ -44,19 +44,23 @@ class TxtAnalyze:
 
     def txt_filter(self):
         """remove any txt"""
-        txt = re.sub('[()]', ' ', self.txt)
+        txt = re.sub('[()]', '', self.txt)
         self.txt = txt
 
-    def word_counter(self):
+    def words_counter(self):
+        p_list = ['名詞', '動詞', '形容詞']
         t = Tokenizer()
         self.words = t.tokenize(self.txt)
+        pattarn = ''
+        for p in p_list:
+            pattarn += p + '|'
+        pattarn = pattarn[:-1]
         for i in self.words:
             ps = i.part_of_speech
-            if ps.find('名詞') < 0| ps.find('動詞')|ps.find('形容詞'):
-                continue
-            if not i.surface in self.word_dic:
-                self.word_dic[i.surface] = 0
-            self.word_dic[i.surface] += 1
+            if re.match(pattarn, str(ps)):
+                if not i.surface in self.word_dic:
+                    self.word_dic[i.surface] = 0
+                self.word_dic[i.surface] += 1
         self.total_keys = self.merge_dict(self.total_keys, self.word_dic)
         self.word_dic = {}
 
@@ -73,16 +77,15 @@ class TxtAnalyze:
                 elif k in d:
                     d[k] += dict_n[k]
         return d
-
        
-    def main(self, dir_name):
+    def all_words_counter(self, dir_name):
         self.read_all_txt(dir_name)
         cnt = 0
         result = {}
         for i in self.file_list:
             self.read_txt(i, dir_name)
             self.txt_filter()
-            self.word_counter()
+            self.words_counter()
             cnt += 1
             print("process{0}...done." .format(cnt))
         self.keys = sorted(self.total_keys.items(), key=lambda x:x[1], reverse=True)
@@ -90,6 +93,7 @@ class TxtAnalyze:
             json.dump(self.keys, f)
         print(self.keys)
 
+
 if __name__ == '__main__':
     test = TxtAnalyze()
-    test.main('PoppinParty')
+    test.all_words_counter('PoppinParty')
