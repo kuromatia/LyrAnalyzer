@@ -89,7 +89,8 @@ class TxtAnalyze:
             cnt += 1
             print("process{0}...done." .format(cnt))
         self.keys = sorted(self.total_keys.items(), key=lambda x:x[1], reverse=True)
-        with open('output.json', 'w') as f:
+        file_name = 'counted_' + dir_name + '.json'
+        with open(file_name, 'w') as f:
             json.dump(self.keys, f)
         print(self.keys)
 
