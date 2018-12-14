@@ -53,6 +53,7 @@ class GetLyr:
                 print('process {0} ...done.'.format(cnt))
                 cnt += 1
                 time.sleep(2)
+        os.chdir('../')
 
     # run get_list + save_txt
     def main(self, url, artist_name):
@@ -62,4 +63,5 @@ class GetLyr:
 
 
 if __name__ == '__main__':
-    GetLyr().main('https://www.uta-net.com/artist/19617/', 'PoppinParty')
+    #GetLyr().main('https://www.uta-net.com/artist/19617/', 'PoppinParty')
+    GetLyr().main('https://www.uta-net.com/artist/22197/', 'Roselia')

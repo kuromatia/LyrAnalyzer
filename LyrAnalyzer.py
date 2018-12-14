@@ -97,4 +97,4 @@ class TxtAnalyze:
 
 if __name__ == '__main__':
     test = TxtAnalyze()
-    test.all_words_counter('PoppinParty')
+    test.all_words_counter('Roselia')
