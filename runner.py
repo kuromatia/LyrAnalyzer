@@ -10,6 +10,8 @@ if __name__ == '__main__':
     GetLyr().main('https://www.uta-net.com/artist/22674/', 'PastelPalettes')
     '''
 
+    TxtAnalyze().all_words_counter('PoppinParty')
+    TxtAnalyze().all_words_counter('Roselia')
     TxtAnalyze().all_words_counter('HelloHappyWorld')
-
-
+    TxtAnalyze().all_words_counter('Afterglow')
+    TxtAnalyze().all_words_counter('PastelPalettes')
