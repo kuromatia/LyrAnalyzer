@@ -53,11 +53,13 @@ class TxtAnalyze:
         self.words = t.tokenize(self.txt)
         pattarn = ''
         for p in p_list:
+            pattarn += '^'
             pattarn += p + '|'
         pattarn = pattarn[:-1]
         for i in self.words:
             ps = i.part_of_speech
             if re.match(pattarn, str(ps)):
+                print(i)
                 if not i.surface in self.word_dic:
                     self.word_dic[i.surface] = 0
                 self.word_dic[i.surface] += 1
@@ -90,11 +92,11 @@ class TxtAnalyze:
             print("process{0}...done." .format(cnt))
         self.keys = sorted(self.total_keys.items(), key=lambda x:x[1], reverse=True)
         file_name = 'counted_' + dir_name + '.json'
-        with open(file_name, 'w') as f:
-            json.dump(self.keys, f)
+        #with open(file_name, 'w') as f:
+        #    json.dump(self.keys, f)
         print(self.keys)
 
 
 if __name__ == '__main__':
     test = TxtAnalyze()
-    test.all_words_counter('Roselia')
+    test.all_words_counter('HelloHappyWorld')
