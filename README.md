@@ -1,7 +1,7 @@
 # LyrAnalyzer
 歌詞のスクレイピングと形態素解析を行います。
 
-# できること
+## できること
 ### GetUtaNet.py
 歌詞検索サービス　歌ネット( https://www.uta-net.com )から歌詞データを別ファイルで保存 
 歌詞リストからページにある全曲の歌詞を抽出してテキストファイルで保存
@@ -23,5 +23,5 @@ GetLyr().main('https://www.uta-net.com/artist/19617/', 'PoppinParty')
 ```python
 from LyrAnalyzer import all_words_counter
 
-all_words_counter('HelloHappyWorld')
+all_words_counter('PoppinParty')
 ```
